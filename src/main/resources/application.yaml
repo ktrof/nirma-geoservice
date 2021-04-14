@@ -1,0 +1,24 @@
+server:
+  servlet:
+    contextPath: /
+  port: 8080
+
+spring:
+  jackson:
+    date-format: org.nirma.RFC3339DateFormat
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+
+springfox:
+  documentation:
+    open-api:
+      v3:
+        path: /api-docs
+nirma:
+  mongodb:
+    uri: mongodb://localhost:27017/nirmadb
+    database: nirmadb
+    username: user
+    password: password
+
