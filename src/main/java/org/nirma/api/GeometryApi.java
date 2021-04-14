@@ -5,21 +5,21 @@
  */
 package org.nirma.api;
 
-import org.nirma.model.GeometryCollection;
-import org.nirma.model.InlineResponse400;
-import org.nirma.model.InlineResponse500;
-import org.nirma.model.Geometry;
-import org.nirma.model.InlineResponse401;
-import org.nirma.model.InlineResponse403;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.nirma.model.FeatureCollection;
+import org.nirma.model.GeometryCollection;
+import org.nirma.model.InlineResponse400;
+import org.nirma.model.InlineResponse401;
+import org.nirma.model.InlineResponse403;
+import org.nirma.model.InlineResponse500;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-09T07:56:43.078Z[GMT]")
 @Validated
@@ -46,7 +45,7 @@ public interface GeometryApi {
     @RequestMapping(value = "/geometry",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<GeometryCollection>> geometryGet();
+    ResponseEntity<FeatureCollection> featureCollectionGet();
 
 
     @Operation(summary = "Create new GeoJSON Geometry object", description = "", security = {
@@ -61,11 +60,11 @@ public interface GeometryApi {
         @ApiResponse(responseCode = "403", description = "The access is not allowed.", content = @Content(schema = @Schema(implementation = InlineResponse403.class))),
         
         @ApiResponse(responseCode = "500", description = "An unexpected error occured.", content = @Content(schema = @Schema(implementation = InlineResponse500.class))) })
-    @RequestMapping(value = "/geometry",
+    @RequestMapping(value = "/features",
         produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> geometryPost(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody Geometry body);
+    ResponseEntity<Void> featureCollectionPost(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody FeatureCollection body);
 
 }
 

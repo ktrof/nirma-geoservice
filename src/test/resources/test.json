@@ -1,0 +1,135 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          30.36091,
+          59.931058
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "nan"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.516726,
+          59.73777
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "\u0410\u0432\u0430\u0440\u0438\u044f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.387769,
+          59.971907
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "\u0410\u0432\u0430\u0440\u0438\u044f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.332225,
+          60.0445
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "\u0410\u0432\u0430\u0440\u0438\u044f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.430752,
+          59.845916
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "nan"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.370527,
+          59.932979
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "nan"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.36091,
+          59.931058
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "\u0410\u0432\u0430\u0440\u0438\u044f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.129469,
+          60.001119
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "nan"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.25467,
+          59.955158
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "\u0410\u0432\u0430\u0440\u0438\u044f"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          30.38096,
+          60.069627
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "topic": "nan"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

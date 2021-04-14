@@ -21,7 +21,7 @@ import java.util.Map;
 @EnableMongoRepositories(basePackages = {"org.nirma.repository"})
 public class MongoConfiguration {
 
-    private Map<String, String> mongodb = new HashMap<>();
+    private final Map<String, String> mongodb = new HashMap<>();
 
     @Bean
     public MongoClient mongo() {
