@@ -10,6 +10,7 @@ import org.nirma.service.GeoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +25,10 @@ public class GeometryApiController implements GeometryApi {
     private final HttpServletRequest request;
     private final GeoService geoService;
 
-    public ResponseEntity<FeatureCollection> featureCollectionGet() {
+    public ResponseEntity<FeatureCollection> featureCollectionGetByTopic(@RequestParam String topic) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            return new ResponseEntity<FeatureCollection>(new FeatureCollection(), HttpStatus.OK);
+            return new ResponseEntity<FeatureCollection>(geoService.getFeatureCollectionByTopic(topic), HttpStatus.OK);
         }
 
         return new ResponseEntity<FeatureCollection>(HttpStatus.NOT_IMPLEMENTED);

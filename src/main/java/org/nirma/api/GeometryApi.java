@@ -25,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -42,10 +43,10 @@ public interface GeometryApi {
         @ApiResponse(responseCode = "401", description = "The request requires an user authentication.", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
         
         @ApiResponse(responseCode = "500", description = "An unexpected error occured.", content = @Content(schema = @Schema(implementation = InlineResponse500.class))) })
-    @RequestMapping(value = "/geometry",
+    @RequestMapping(value = "/features",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<FeatureCollection> featureCollectionGet();
+    ResponseEntity<FeatureCollection> featureCollectionGetByTopic(@RequestParam String topic);
 
 
     @Operation(summary = "Create new GeoJSON Geometry object", description = "", security = {

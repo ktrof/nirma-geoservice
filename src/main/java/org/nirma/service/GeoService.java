@@ -6,4 +6,6 @@ public interface GeoService {
 
     void saveFeatureCollection(FeatureCollection featureCollection);
 
+    FeatureCollection getFeatureCollectionByTopic(String topic);
+
 }
