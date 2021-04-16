@@ -36,7 +36,7 @@ public interface GeometryApi {
     @Operation(summary = "Get an array of GeoJSON Geometry objects", description = "", security = {
         @SecurityRequirement(name = "UserSecurity")    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(array = @ArraySchema(schema = @Schema(implementation = GeometryCollection.class)))),
+        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(array = @ArraySchema(schema = @Schema(implementation = FeatureCollection.class)))),
         
         @ApiResponse(responseCode = "400", description = "The JSON is not valid.", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
         
@@ -49,10 +49,10 @@ public interface GeometryApi {
     ResponseEntity<FeatureCollection> featureCollectionGetByTopic(@RequestParam String topic);
 
 
-    @Operation(summary = "Create new GeoJSON Geometry object", description = "", security = {
+    @Operation(summary = "Create new GeoJSON FeatureCollection object", description = "", security = {
         @SecurityRequirement(name = "UserSecurity")    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "New GeoJSON Geometry object created"),
+        @ApiResponse(responseCode = "201", description = "New GeoJSON FeatureCollection object created"),
         
         @ApiResponse(responseCode = "400", description = "The JSON is not valid.", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
         

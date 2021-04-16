@@ -23,9 +23,12 @@ public class FeatureCollection extends GeoJsonObject  {
   @Valid
   private List<Feature> features = new ArrayList<Feature>();
 
-  public FeatureCollection() {}
+  public FeatureCollection() {
+    setType(TypeEnum.FEATURECOLLECTION);
+  }
 
   public FeatureCollection(@Valid List<Feature> features) {
+    this();
     this.features = features;
   }
 
