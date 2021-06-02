@@ -3,25 +3,34 @@ package org.nirma.configuration;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
 import lombok.Getter;
+import lombok.Setter;
+import org.nirma.model.Feature;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.mapping.context.MappingContext;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.index.IndexResolver;
+import org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver;
+import org.springframework.data.mongodb.core.index.ReactiveIndexOperations;
+import org.springframework.data.mongodb.core.mapping.MongoPersistentEntity;
+import org.springframework.data.mongodb.core.mapping.MongoPersistentProperty;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@Setter
 @Configuration
 @ConfigurationProperties(prefix = "nirma")
-@EnableMongoRepositories(basePackages = {"org.nirma.repository"})
+@EnableReactiveMongoRepositories(basePackages = {"org.nirma.repository"})
 public class MongoConfiguration {
 
-    private Map<String, String> mongodb = new HashMap<>();
+    private final Map<String, String> mongodb = new HashMap<>();
 
     @Bean
     public MongoClient mongo() {
@@ -38,7 +47,16 @@ public class MongoConfiguration {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongo(), mongodb.get("database"));
+    public ReactiveMongoTemplate reactiveMongoTemplate() {
+        ReactiveMongoTemplate mongoTemplate = new ReactiveMongoTemplate(mongo(), mongodb.get("database"));
+
+        MappingContext<? extends MongoPersistentEntity<?>, MongoPersistentProperty> mappingContext = mongoTemplate
+                .getConverter().getMappingContext();
+
+        IndexResolver resolver = new MongoPersistentEntityIndexResolver(mappingContext);
+
+        ReactiveIndexOperations indexOps = mongoTemplate.indexOps(Feature.class);
+        resolver.resolveIndexFor(Feature.class).forEach(indexOps::ensureIndex);
+        return mongoTemplate;
     }
 }
