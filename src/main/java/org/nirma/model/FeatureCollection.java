@@ -1,7 +1,11 @@
 package org.nirma.model;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
@@ -53,6 +57,7 @@ public class FeatureCollection extends GeoJsonObject  {
     return features;
   }
 
+//  @JsonSetter(contentNulls = Nulls.SKIP)
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }

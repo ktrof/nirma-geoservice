@@ -2,37 +2,29 @@ package org.nirma.service;
 
 import lombok.RequiredArgsConstructor;
 import org.nirma.model.Feature;
-import org.nirma.model.FeatureCollection;
 import org.nirma.repository.GeoRepository;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-@EnableAsync
 public class GeoServiceImpl implements GeoService {
 
     private static final String TOPIC = "topic";
 
     private final GeoRepository geoRepository;
 
-    @Async
     @Override
-    public void saveFeatureCollection(FeatureCollection featureCollection) {
-        geoRepository.deleteAll();
-        featureCollection.getFeatures().forEach(geoRepository::save);
+    public Mono<Feature> saveFeature(Feature feature) {
+        feature.setRegisterDate(LocalDateTime.now());
+        return geoRepository.save(feature);
     }
 
     @Override
-    public FeatureCollection getFeatureCollectionByTopic(String topic) {
-        Map<String, Object> propertyMap = new HashMap<>();
-        propertyMap.put(TOPIC, topic);
-        List<Feature> featuresByProperties = geoRepository.getFeaturesByProperties(propertyMap);
-        return new FeatureCollection(featuresByProperties);
+    public Flux<Feature> getFeaturesByTopic(String topic) {
+        return geoRepository.getFeaturesByProperty(TOPIC, topic);
     }
 }
