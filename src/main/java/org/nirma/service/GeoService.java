@@ -1,11 +1,13 @@
 package org.nirma.service;
 
-import org.nirma.model.FeatureCollection;
+import org.nirma.model.Feature;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface GeoService {
 
-    void saveFeatureCollection(FeatureCollection featureCollection);
+    Mono<Feature> saveFeature(Feature feature);
 
-    FeatureCollection getFeatureCollectionByTopic(String topic);
+    Flux<Feature> getFeaturesByTopic(String topic);
 
 }

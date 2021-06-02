@@ -1,15 +1,15 @@
 package org.nirma.repository;
 
 import org.nirma.model.Feature;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Map;
+import reactor.core.publisher.Flux;
 
 @Repository
-public interface GeoRepository extends MongoRepository<Feature, String> {
+public interface GeoRepository extends ReactiveCrudRepository<Feature, String> {
 
-    List<Feature> getFeaturesByProperties(Map<String, Object> property);
+    @Query("{'properties' : {?0 : ?1}}")
+    Flux<Feature> getFeaturesByProperty(String property, String value);
 
 }

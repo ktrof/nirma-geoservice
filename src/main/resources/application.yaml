@@ -9,7 +9,6 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
-
 springfox:
   documentation:
     open-api:
@@ -17,8 +16,15 @@ springfox:
         path: /api-docs
 nirma:
   mongodb:
-    uri: mongodb://localhost:27017/nirmadb
-    database: nirmadb
-    username: user
-    password: password
+    uri: ${MONGO_URL}/${MONGO_DB}
+    database: ${MONGO_DB}
+    username: ${MONGO_USERNAME}
+    password: ${MONGO_PASSWORD}
+  rabbitmq:
+    host: host.docker.internal
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    queue: featureQueue
+    routingkey: nirma.featureQueue
+    exchange: featureExchange
 

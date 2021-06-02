@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+      - ./.docker/mongodb/data/db/:/data/db/
+      - ./.docker/mongodb/data/log/:/var/log/mongodb/
+    ports:
+      - 27017:27017
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+
+  geoservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geoservice
+    ports:
+      - 8080:8080
+      - 8000:8000
+    environment:
+      WAIT_HOSTS: mongodb:27017,rabbitmq:5672
+      WAIT_TIMEOUT: 60
+      MONGO_DB: ${MONGO_INITDB_DATABASE}
+      MONGO_URL: ${MONGO_URL}
+      MONGO_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
