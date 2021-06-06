@@ -1,10 +1,10 @@
 package org.nirma.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +23,7 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-09T07:56:43.078Z[GMT]")
 
 @Document(collection = "features")
+@CompoundIndex(name = "topicIndex", def = "{'properties.topic' : 1}")
 public class Feature extends GeoJsonObject  {
   @JsonProperty("geometry")
   private Object geometry = null;
@@ -35,7 +36,7 @@ public class Feature extends GeoJsonObject  {
   private String id = null;
 
   @JsonIgnore
-  @Indexed(name = "registerDateIndex", expireAfterSeconds = 10)
+  @Indexed(name = "registerDateIndex", expireAfterSeconds = 60/* * 60 * 24 * 30*/)
   private LocalDateTime registerDate = null;
 
   public Feature geometry(Object geometry) {
