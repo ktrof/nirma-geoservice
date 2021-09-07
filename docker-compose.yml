@@ -32,9 +32,7 @@ services:
       - nirma-network
 
   geoservice:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: tkremen/nirma-geoservice:1.0
     container_name: geoservice
     ports:
       - 8080:8080
