@@ -1,13 +1,22 @@
 package org.nirma.service;
 
-import org.nirma.model.Feature;
+import org.nirma.model.Accident;
+import org.nirma.model.District;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface GeoService {
 
-    Mono<Feature> saveFeature(Feature feature);
+    Mono<Accident> saveAccident(Accident accident);
 
-    Flux<Feature> getFeaturesByTopic(String topic);
+    Mono<District> saveDistrict(District district);
+
+    Flux<Accident> getAccidentsByTopic(String topic);
+
+    Flux<District> getDistrictByName(String name);
+
+    void deleteDistricts();
+
+    void deleteAccidents();
 
 }
