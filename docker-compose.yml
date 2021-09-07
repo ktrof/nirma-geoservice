@@ -5,11 +5,11 @@ services:
     image: mongo:latest
     container_name: mongodb
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
-      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_USERNAME: user
+      MONGO_INITDB_PASSWORD: password
+      MONGO_INITDB_DATABASE: nirmadb
     volumes:
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
       - ./.docker/mongodb/data/db/:/data/db/
@@ -26,8 +26,8 @@ services:
       - 15672:15672
       - 5672:5672
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
     networks:
       - nirma-network
 
@@ -40,12 +40,12 @@ services:
     environment:
       WAIT_HOSTS: mongodb:27017,rabbitmq:5672
       WAIT_TIMEOUT: 60
-      MONGO_DB: ${MONGO_INITDB_DATABASE}
-      MONGO_URL: ${MONGO_URL}
-      MONGO_USERNAME: ${MONGO_INITDB_USERNAME}
-      MONGO_PASSWORD: ${MONGO_INITDB_PASSWORD}
-      RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
+      MONGO_DB: nirmadb
+      MONGO_URL: mongodb://mongodb:27017
+      MONGO_USERNAME: user
+      MONGO_PASSWORD: password
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
     networks:
       - nirma-network
 
