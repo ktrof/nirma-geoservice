@@ -2,7 +2,8 @@ package org.nirma;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.nirma.model.Feature;
+import org.nirma.model.Accident;
+import org.nirma.model.FeatureCollection;
 import org.nirma.service.GeoService;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -23,21 +24,24 @@ public class GeoServiceInitializer implements ApplicationListener<ApplicationRea
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
 
-        Flux.<Feature>create(fluxSink -> {
+        Flux.<FeatureCollection>create(fluxSink -> {
             messageListenerContainer.setMessageListener(message -> {
+                geoService.deleteAccidents();
                 try {
                     if (message.getBody() != null) {
-                        Feature feature = objectMapper.readValue(message.getBody(), Feature.class);
-                        fluxSink.next(feature);
+                        FeatureCollection featureCollection = objectMapper.readValue(message.getBody(), FeatureCollection.class);
+                        fluxSink.next(featureCollection);
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    fluxSink.error(e);
                 }
             });
             fluxSink.onRequest(value -> messageListenerContainer.start());
             fluxSink.onDispose(messageListenerContainer::stop);
         })
-                .flatMap(geoService::saveFeature)
+                .flatMapIterable(FeatureCollection::getFeatures)
+                .map(Accident::new)
+                .flatMap(geoService::saveAccident)
                 .subscribe();
 
     }

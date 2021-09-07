@@ -47,4 +47,8 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
     public boolean autoIndexCreation() {
         return true;
     }
+
+    public Integer getDeleteDaysLimit() {
+        return Integer.parseInt(mongodb.get("deletedayslimit"));
+    }
 }

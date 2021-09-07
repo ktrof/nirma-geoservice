@@ -1,16 +1,10 @@
 package org.nirma.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -22,22 +16,12 @@ import java.util.Objects;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-09T07:56:43.078Z[GMT]")
 
-@Document(collection = "features")
-@CompoundIndex(name = "topicIndex", def = "{'properties.topic' : 1}")
 public class Feature extends GeoJsonObject  {
   @JsonProperty("geometry")
   private Object geometry = null;
 
   @JsonProperty("properties")
   private Map<String, Object> properties = new HashMap<String, Object>();
-
-  @Id
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonIgnore
-  @Indexed(name = "registerDateIndex", expireAfterSeconds = 60/* * 60 * 24 * 30*/)
-  private LocalDateTime registerDate = null;
 
   public Feature geometry(Object geometry) {
     this.geometry = geometry;
@@ -86,33 +70,6 @@ public class Feature extends GeoJsonObject  {
     this.properties = properties;
   }
 
-  public Feature id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  @Schema(description = "")
-  
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public LocalDateTime getRegisterDate() {
-    return registerDate;
-  }
-
-  public void setRegisterDate(LocalDateTime registerDate) {
-    this.registerDate = registerDate;
-  }
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -124,14 +81,12 @@ public class Feature extends GeoJsonObject  {
     Feature feature = (Feature) o;
     return Objects.equals(this.geometry, feature.geometry) &&
         Objects.equals(this.properties, feature.properties) &&
-        Objects.equals(this.id, feature.id) &&
-        Objects.equals(this.registerDate, feature.registerDate) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(geometry, properties, id, registerDate, super.hashCode());
+    return Objects.hash(geometry, properties, super.hashCode());
   }
 
   @Override
@@ -141,8 +96,6 @@ public class Feature extends GeoJsonObject  {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    geometry: ").append(toIndentedString(geometry)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    registerDate: ").append(toIndentedString(registerDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -27,4 +27,3 @@ nirma:
     queue: featureQueue
     routingkey: nirma.featureQueue
     exchange: featureExchange
-

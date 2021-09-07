@@ -1,18 +1,16 @@
 package org.nirma.model;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * GeoJSon &#x27;FeatureCollection&#x27; object
@@ -57,7 +55,7 @@ public class FeatureCollection extends GeoJsonObject  {
     return features;
   }
 
-//  @JsonSetter(contentNulls = Nulls.SKIP)
+  @JsonSetter(contentNulls = Nulls.SKIP)
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }
