@@ -12,12 +12,11 @@ services:
       MONGO_INITDB_DATABASE: nirmadb
     volumes:
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
-      - ./.docker/mongodb/data/db/:/data/db/
-      - ./.docker/mongodb/data/log/:/var/log/mongodb/
+      - ./mongodb/data/db/:/data/db/
+      - ./mongodb/data/log/:/var/log/mongodb/
     ports:
       - 27017:27017
-    networks:
-      - nirma-network
+    restart: unless-stopped
 
   rabbitmq:
     image: rabbitmq:management
@@ -28,11 +27,12 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
-    networks:
-      - nirma-network
 
   geoservice:
-    image: tkremen/nirma-geoservice:1.0
+    image: tkremen/nirma-geoservice:1.1
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     container_name: geoservice
     ports:
       - 8080:8080
@@ -44,11 +44,20 @@ services:
       MONGO_URL: mongodb://mongodb:27017
       MONGO_USERNAME: user
       MONGO_PASSWORD: password
+      RABBITMQ_HOST: rabbitmq
       RABBITMQ_USERNAME: admin
       RABBITMQ_PASSWORD: admin
-    networks:
-      - nirma-network
+      UI_HOST: nirma-ui
 
-networks:
-  nirma-network:
-    name: custom-nirma-network
+  nirma-ui:
+    image: tkremen/nirma-front:1.0
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    container_name: nirma-ui
+    environment:
+      API_HOST: host.docker.internal
+      WAIT_HOSTS: host.docker.internal:8080,
+      WAIT_TIMEOUT: 120
+    ports:
+      - 8081:80
