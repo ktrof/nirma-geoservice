@@ -15,13 +15,14 @@ springfox:
       v3:
         path: /api-docs
 nirma:
+  corsallowedhost: ${UI_HOST}
   mongodb:
     uri: ${MONGO_URL}/${MONGO_DB}
     database: ${MONGO_DB}
     username: ${MONGO_USERNAME}
     password: ${MONGO_PASSWORD}
   rabbitmq:
-    host: host.docker.internal
+    host: ${RABBITMQ_HOST}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
     queue: featureQueue
