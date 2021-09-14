@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.nirma.model.Accident;
 import org.nirma.model.District;
 import org.nirma.model.Feature;
-import org.nirma.model.FeatureCollection;
-import org.nirma.repository.DistrictRepository;
 import org.nirma.service.GeoService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

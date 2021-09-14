@@ -29,7 +29,7 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
 
   geoservice:
-    image: tkremen/nirma-geoservice:1.2
+    image: tkremen/nirma-geoservice:1.3
 #    build:
 #      context: .
 #      dockerfile: Dockerfile
@@ -38,6 +38,7 @@ services:
       - 8080:8080
       - 8000:8000
     environment:
+      API_URL: http://host.docker.internal:8080
       WAIT_HOSTS: mongodb:27017,rabbitmq:5672
       WAIT_TIMEOUT: 60
       MONGO_DB: nirmadb
@@ -56,7 +57,7 @@ services:
     container_name: nirma-ui
     environment:
       API_URL: http://host.docker.internal:8080
-      WAIT_HOSTS: host.docker.internal:8080,
+      WAIT_HOSTS: geoservice:8080,
       WAIT_TIMEOUT: 120
     ports:
       - 8081:80

@@ -22,6 +22,7 @@ springfox:
       v3:
         path: /api-docs
 nirma:
+  apiurl: ${API_URL}
   mongodb:
     uri: ${MONGO_URL}/${MONGO_DB}
     database: ${MONGO_DB}
@@ -34,3 +35,8 @@ nirma:
     queue: featureQueue
     routingkey: nirma.featureQueue
     exchange: featureExchange
+
+springdoc:
+  swagger-ui:
+    path: /
+    urls:
