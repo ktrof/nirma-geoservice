@@ -29,7 +29,7 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
 
   geoservice:
-    image: tkremen/nirma-geoservice:1.1
+    image: tkremen/nirma-geoservice:1.2
 #    build:
 #      context: .
 #      dockerfile: Dockerfile
@@ -47,16 +47,15 @@ services:
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_USERNAME: admin
       RABBITMQ_PASSWORD: admin
-      UI_HOST: nirma-ui
 
   nirma-ui:
-    image: tkremen/nirma-front:1.0
+    image: tkremen/nirma-front:1.2
     #    build:
     #      context: .
     #      dockerfile: Dockerfile
     container_name: nirma-ui
     environment:
-      API_HOST: host.docker.internal
+      API_URL: http://host.docker.internal:8080
       WAIT_HOSTS: host.docker.internal:8080,
       WAIT_TIMEOUT: 120
     ports:
