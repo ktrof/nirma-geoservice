@@ -2,6 +2,13 @@ server:
   servlet:
     contextPath: /
   port: 8080
+#  ssl:
+#    key-store-type: PKCS12
+#    key-store: classpath:keystore/geoservice.p12
+#    key-store-password: password
+#    key-alias: geoservice
+#    key-password: password
+#    enabled: true
 
 spring:
   jackson:
@@ -15,7 +22,6 @@ springfox:
       v3:
         path: /api-docs
 nirma:
-  corsallowedhost: ${UI_HOST}
   mongodb:
     uri: ${MONGO_URL}/${MONGO_DB}
     database: ${MONGO_DB}
