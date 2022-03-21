@@ -50,10 +50,7 @@ services:
       RABBITMQ_PASSWORD: admin
 
   nirma-ui:
-    image: tkremen/nirma-front:1.2
-    #    build:
-    #      context: .
-    #      dockerfile: Dockerfile
+    image: tkremen/nirma-front:1.3
     container_name: nirma-ui
     environment:
       API_URL: http://host.docker.internal:8080
